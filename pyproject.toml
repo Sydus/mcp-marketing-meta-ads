@@ -28,6 +28,9 @@ dependencies = [
     "python-dateutil>=2.8.2",
     "pytest>=8.4.1",
     "pytest-asyncio>=1.0.0",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "redis[hiredis]>=5.0.0",
 ]
 
 [project.urls]
@@ -36,6 +39,7 @@ dependencies = [
 
 [project.scripts]
 meta-ads-mcp = "meta_ads_mcp:entrypoint"
+mcp-marketing-meta-ads = "meta_ads_mcp.core.server_agent24:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["meta_ads_mcp"]

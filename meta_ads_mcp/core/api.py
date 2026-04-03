@@ -289,6 +289,17 @@ def meta_api_tool(func):
     @functools.wraps(func)
     async def wrapper(*args, **kwargs):
         try:
+            # Tenta prima dal broker identity (Agent24 pattern)
+            try:
+                from meta_ads_mcp.identity import get_creds
+                identity_creds = get_creds()
+                if identity_creds:
+                    identity_token = identity_creds.get("meta_ads", {}).get("access_token")
+                    if identity_token:
+                        kwargs['access_token'] = identity_token
+            except Exception:
+                pass  # Fallback al meccanismo originale
+
             # Log function call
             logger.debug(f"Function call: {func.__name__}")
             logger.debug(f"Args: {args}")
